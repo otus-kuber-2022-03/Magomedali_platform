@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: server
+        image: webali/hipster-frontend:v0
+        env:
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: /catalog
+          - name: CURRENCY_SERVICE_ADDR
+            value: "http://localhost:8888"
+          - name: CART_SERVICE_ADDR
+            value: "http://localhost:8889"
+          - name: RECOMMENDATION_SERVICE_ADDR
+            value: "http://localhost:8890"
+          - name: CHECKOUT_SERVICE_ADDR
+            value: "http://localhost:8890"
+          - name: SHIPPING_SERVICE_ADDR
+            value: "http://localhost:8891"
+          - name: AD_SERVICE_ADDR
+            value: "http://localhost:8892"
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: "/_healthz"
+            httpHeaders:
+              - name: "Cookie"
+                value: "shop_session-id=x-readiness-probe"
+        livenessProbe:
+          initialDelaySeconds: 0
+          httpGet:
+            port: 8080
+            path: "/_healthz"
+            httpHeaders:
+              - name: "Cookie"
+                value: "shop_session-id=x-liveness-probe"
