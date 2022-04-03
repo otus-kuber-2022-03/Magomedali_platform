@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup
+  labels:
+    app: web
+spec:
+  schedule: '*/1 * * * *'
+  failedJobsHistoryLimit: 5
+  successfulJobsHistoryLimit: 1
+  startingDeadlineSeconds: 60
+  suspend: false
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 600
+      template:
+        spec:
+          containers:
+            - name: pi
+              image: perl
+              command: ['perl', "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          restartPolicy: Never
