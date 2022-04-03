@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: web
+    env: dev
+    tier: front
+  name: web
+  namespace: default
+spec:
+  containers:
+    - image: webali/go-http-server:v0.0.1
+      imagePullPolicy: IfNotPresent
+      name: web
+      ports:
+        - containerPort: 8888
+      volumeMounts:
+        - mountPath: /logs
+          name: logs
+  volumes:
+    - emptyDir: {}
+      name: logs

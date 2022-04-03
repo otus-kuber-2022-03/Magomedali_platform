@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: default
+  labels:
+    app: web
+    tier: front
+    env: dev
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: web
+    matchExpressions:
+      - key: env
+        operator: NotIn
+        values: [prod]
+      - key: tier
+        operator: In
+        values: [front]
+  template:
+    metadata:
+      labels:
+        app: web
+        tier: front
+        env: dev
+        version: latest
+    spec:
+      containers:
+        - name: web
+          imagePullPolicy: IfNotPresent
+          image: webali/go-http-server:v0.0.1
+          ports:
+            - containerPort: 8888
+          volumeMounts:
+            - mountPath: /logs
+              name: logs
+      volumes:
+        - name: logs
+          emptyDir: {}

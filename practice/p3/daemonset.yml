@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: web
+  namespace: default
+  labels:
+    app: web
+spec:
+  selector:
+    matchLabels:
+        app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: webali/go-http-server:v0.0.1
+          ports:
+            - containerPort: 8888
+      terminationGracePeriodSeconds: 30
+
