@@ -19,8 +19,8 @@
 - Поднять под с контейнером приложения командой - kubectl apply -f kubernetes-intro/web/web-pod.yml
 
 ## Как проверить работоспособность:
-- Пробросить порт на локальный хост - kubectl port-forward pod/server 8888:8888
-- Открыть через браузер страницу http://localhost:8888/
+- Пробросить порт на локальный хост - kubectl port-forward pod/server 8000:8000
+- Открыть через браузер страницу http://localhost:8000/
 
 ## PR checklist:
 - [x] Выставлен label с темой домашнего задания
