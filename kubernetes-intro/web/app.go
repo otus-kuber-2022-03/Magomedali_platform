@@ -14,6 +14,29 @@ type App struct {
 func main() {
 	r := mux.NewRouter()
 	app := App{StaticPath: "/app", Index: "index.html"}
+	r.Path("/health").Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ok"))
+	})).Methods("GET")
+	r.Path("/live").Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ok"))
+	})).Methods("GET")
+	r.Path("/hostname").Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		h, err := os.Hostname()
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		}
+		w.Write([]byte(h))
+	})).Methods("GET")
+	r.Path("/version").Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		version := os.Getenv("VERSION")
+		if version == "" {
+			version = "latest"
+		}
+		w.Write([]byte(version))
+	})).Methods("GET")
 	r.PathPrefix("/").Handler(app).Methods("GET")
 
 	server := http.Server{

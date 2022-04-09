@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  labels:
+    app: web
+    course: k8s
+spec:
+  initContainers:
+    - name: init
+      image: busybox:1.31
+      command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh']
+      volumeMounts:
+        - mountPath: /app
+          name: templates
+  containers:
+    - name: server
+      image: webali/go-http-server:v0.2.2
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8888
+      livenessProbe:
+        httpGet:
+          port: 8888
+          path: "/live"
+      readinessProbe:
+        httpGet:
+          port: 8888
+          path: "/health"
+      volumeMounts:
+        - mountPath: /app
+          name: templates
+  volumes:
+    - name: templates
+      emptyDir: {}
