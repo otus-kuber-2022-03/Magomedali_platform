@@ -9,11 +9,11 @@ metadata:
   namespace: default
 spec:
   containers:
-    - image: webali/go-http-server:v0.0.1
+    - image: webali/go-http-server:v0.2.5
       imagePullPolicy: IfNotPresent
       name: web
       ports:
-        - containerPort: 8888
+        - containerPort: 8000
       volumeMounts:
         - mountPath: /logs
           name: logs

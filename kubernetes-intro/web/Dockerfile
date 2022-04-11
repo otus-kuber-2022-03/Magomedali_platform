@@ -18,5 +18,5 @@ RUN addgroup -g 1001 -S ci && \
     chown -R ci:ci /app && chmod -R 555 /app
 
 USER ci
-EXPOSE 8888
+EXPOSE 8000
 CMD ["./app"]

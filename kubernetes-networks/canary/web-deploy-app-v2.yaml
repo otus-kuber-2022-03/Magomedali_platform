@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-v2
+  labels:
+    app: web-v2
+    course: k8s
+    version: v2
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: web-v2
+  template:
+    metadata:
+      labels:
+        app: web-v2
+        course: k8s
+        tag: canary-deployment
+    spec:
+      initContainers:
+        - name: init
+          image: busybox:1.31
+          command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh']
+          volumeMounts:
+            - mountPath: /app
+              name: templates
+      containers:
+        - name: server
+          image: webali/go-http-server:v0.2.5
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: VERSION
+              value: v2
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              port: 8000
+              path: "/live"
+          readinessProbe:
+            httpGet:
+              port: 8000
+              path: "/health"
+          volumeMounts:
+            - mountPath: /app
+              name: templates
+      volumes:
+        - name: templates
+          emptyDir: {}
