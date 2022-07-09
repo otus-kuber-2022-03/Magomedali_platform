@@ -282,7 +282,7 @@ ingress:
 #      ## Secrets must be added manually to the namespace
 #      tlsSecret: chartmuseum.domain2-tls
 
-# Adding secrets.yaml to tiller is not a great option, so If you want to use an existing
+# Adding secrets.yaml_disabled to tiller is not a great option, so If you want to use an existing
 # secret that contains the json file, you can use the following entries
 gcp:
   secret:

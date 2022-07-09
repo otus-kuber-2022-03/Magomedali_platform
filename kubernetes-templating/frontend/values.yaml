@@ -10,5 +10,3 @@ port: 8080
 service:
   type: ClusterIP
   port: 80
-
-visibleKey:

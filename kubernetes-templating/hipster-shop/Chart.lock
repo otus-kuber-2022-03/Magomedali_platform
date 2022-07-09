@@ -1,9 +1,9 @@
 dependencies:
 - name: frontend
-  repository: file://../frontend
-  version: 0.1.3
+  repository: https://harbor.18.223.81.13.nip.io/chartrepo/templating
+  version: 0.1.4
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 16.13.2
-digest: sha256:84123d07f467b30cc88ae08f34cf818cade969812705de6d8a062cc6a6076cbf
-generated: "2022-07-09T15:49:54.154289+03:00"
+digest: sha256:33ae7da1919089a86f534e26bb9adab485d2dc4b2078f64722afe0b0ffd05b5e
+generated: "2022-07-09T20:39:48.543298+03:00"
