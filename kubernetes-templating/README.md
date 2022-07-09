@@ -1,7 +1,16 @@
-# Выполнено ДЗ № 8 Helm templating
+# Выполнено ДЗ № 7 Helm templating
 
 - [x] Основное ДЗ
-- [x] Задание со *
+- [x] Задание со * 
+
+Выполнил все задания по Helm
+
+**TODO:**
+После сдачи дипломной работы вернутся к шаблонизаторам и попробовать альтернативы:
+* kubeconfig
+* qbec
+* Kapitan
+* Kustomize
 
 ## В процессе сделано:
 
@@ -37,7 +46,25 @@
 > helm -n web-app install web-app chartmuseum/web-app
 ```
 
+Выполнил все задания по helm
+
+Скрин: harbor
+![img.png](img.png)
+
+Скрин: shop
+![img_1.png](img_1.png)
+
+Скрин: chartmuseum
+![img_2.png](img_2.png)
+
 ## Как запустить проект:
+
+```shell
+> ./repo.sh
+> helm repo update
+> helm -n hipster-shop install hipster-shop --create-namespace templating/hipster-shop
+```
+requirements: ingress-nginx
 
 ## Как проверить работоспособность:
 
