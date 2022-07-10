@@ -1,0 +1,19 @@
+expose:
+  type: ingress
+  ingress:
+    hosts:
+      core: harbor.18.223.81.13.nip.io
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      cert-manager.io/acme-challange-type: http01
+      ingress.kubernetes.io/proxy-body-size: "50m"
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  tls:
+    enabled: true
+
+externalURL: https://harbor.18.223.81.13.nip.io
+
+notary:
+  enabled: false

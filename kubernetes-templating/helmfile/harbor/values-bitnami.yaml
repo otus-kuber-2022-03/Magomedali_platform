@@ -1,0 +1,18 @@
+exposureType: ingress
+service:
+  type: CluterIP
+
+ingress:
+  core:
+    ingressClassName: nginx
+    hostname: harbor.18.223.81.13.nip.io
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      cert-manager.io/acme-challange-type: http01
+      ingress.kubernetes.io/proxy-body-size: "50m"
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    tls: true
+
+adminPassword: "12345qwE"
+externalURL: https://harbor.18.223.81.13.nip.io

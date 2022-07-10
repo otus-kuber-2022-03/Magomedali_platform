@@ -6,5 +6,5 @@
 4. [Kubernetes-network](kubernetes-networks/README.md)
 5. [Kubernetes-volumes](kubernetes-volumes/README.md)
 6. [Kubernetes-operators](kubernetes-operators/README.md)
-7. -
+7. [Kubernetes-templating](kubernetes-templating/README.md)
 8. [Kubernetes-monitoring](kubernetes-monitoring/README.md)

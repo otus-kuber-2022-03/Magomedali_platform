@@ -1,0 +1,58 @@
+repositories:
+#  - name: nginx-ingress
+#    url: https://kubernetes.github.io/ingress-nginx
+
+  - name: jetstack
+    url: https://charts.jetstack.io
+
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+  - name: harbor
+    url: https://helm.goharbor.io
+
+releases:
+#- name: nginx-ingress
+#  createNamespace: true
+#  namespace: nginx-ingress
+#  kubeContext: kit-fn-dev-us
+#  chart: ingress-nginx/ingress-nginx
+#  wait: true
+
+- name: cert-manager
+  createNamespace: true
+  namespace: cert-manager
+  chart: jetstack/cert-manager
+  version: v1.8.2
+  kubeContext: kit-fn-dev-us
+  wait: true
+  set:
+  - name: installCRDs
+    value: true
+
+- name: clusterissuer
+  chart: "./clusterissuer"
+  namespace: clusterissuer
+  createNamespace: true
+  wait: true
+  kubeContext: kit-fn-dev-us
+
+- name: chartmuseum
+  createNamespace: true
+  namespace: chartmuseum
+  chart: "./chartmuseum"
+  kubeContext: kit-fn-dev-us
+  wait: true
+  values:
+    - "./chartmuseum/values-bitnami.yaml"
+    - "./chartmuseum/values-dz.yaml"
+
+- name: harbor
+  createNamespace: true
+  namespace: harbor
+  chart: harbor/harbor
+  version: v1.9.2
+  kubeContext: kit-fn-dev-us
+  wait: true
+  values:
+    - "./harbor/values.yaml"
