@@ -1,0 +1,36 @@
+grafana:
+  additionalDataSources:
+    - name: loki
+      access: proxy
+#      basicAuth: true
+#      basicAuthPassword: pass
+#      basicAuthUser: daco
+      editable: false
+      jsonData:
+        tlsSkipVerify: true
+      type: loki
+      url: http://observability.loki.svc.cluster.local:9090
+      version: 1
+
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - nginx-ingress-ingress-nginx-controller
+          - kube-prometheus-stack-alertmanager
+          - kube-prometheus-stack-apiserver
+          - kube-prometheus-stack-coredns
+          - kube-prometheus-stack-kube-controller-manager
+          - kube-prometheus-stack-kube-etcd
+          - kube-prometheus-stack-kube-proxy
+          - kube-prometheus-stack-kubelet
+          - kube-prometheus-stack-operator
+          - kube-prometheus-stack-prometheus
+          - prometheus-node-exporter
+          - grafana
+          - prometheus
+          - prometheus-operator

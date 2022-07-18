@@ -55,4 +55,4 @@ releases:
   kubeContext: kit-fn-dev-us
   wait: true
   values:
-    - "./harbor/values.yaml"
+    - "./harbor/nginx-ingress-values.yaml"
