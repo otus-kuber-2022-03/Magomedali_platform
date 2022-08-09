@@ -8,3 +8,5 @@
 6. [Kubernetes-operators](kubernetes-operators/README.md)
 7. [Kubernetes-templating](kubernetes-templating/README.md)
 8. [Kubernetes-monitoring](kubernetes-monitoring/README.md)
+9. [Kubernetes-logging](kubernetes-logging/README.md)
+10. [Kubernetes-gitops](kubernetes-gitops/README.md)
