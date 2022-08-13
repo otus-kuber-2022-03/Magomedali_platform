@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prom-deploy
+  namespace: default
+spec:
+  serviceName: prom-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prom
+  template:
+    metadata:
+      labels:
+        app: prom
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: version
+            value: "3"
+        ports:
+          - containerPort: 9090
+        volumeMounts:
+          - mountPath: /etc/prometheus
+            name: prom-config
+      volumes:
+        - name: prom-data
+          persistentVolumeClaim:
+            claimName: prom-pvc
+        - name: prom-config
+          configMap:
+            name: prom-config
+            items:
+              - key: config
+                path: prometheus.yml
+

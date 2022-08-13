@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: prometheus-elasticsearch-exporter
+  name: prometheus-elasticsearch-exporter
+  namespace: observability
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 10s
+    path: /metrics
+    port: http
+    scheme: http
+    scrapeTimeout: 10s
+  jobLabel: elasticsearch-exporter
+  selector:
+    matchLabels:
+      app: prometheus-elasticsearch-exporter

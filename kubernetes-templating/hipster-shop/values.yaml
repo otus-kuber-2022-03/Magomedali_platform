@@ -1,0 +1,10 @@
+
+redis:
+  host: hipster-shop-redis-master
+  port: 6379
+  auth:
+    enabled: false
+    sentinel: false
+  architecture: standalone
+  persistence:
+    enabled: false

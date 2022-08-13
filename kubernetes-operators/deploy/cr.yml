@@ -1,0 +1,11 @@
+apiVersion: otus.homework/v1
+kind: MySQL
+metadata:
+  name: mysql-instance
+spec:
+  image: mysql:5.7
+  database: otus-database
+  root_password: pass4
+  user_name: ali
+  user_password: s2567899
+  storage_size: 1Gi

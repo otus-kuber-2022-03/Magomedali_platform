@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ name }}
+  template:
+    metadata:
+      labels:
+        app: {{ name }}
+    spec:
+      containers:
+      - image: {{ image }}
+        name: {{ name }}
+        args:
+        - "--ignore-db-dir=lost+found"
+        env:
+        - name: MYSQL_ROOT_HOST
+          value: "%"
+        - name: MYSQL_ROOT_PASSWORD # так делать не нужно, тут лучше secret
+          value: {{ root_password }}
+        - name: MYSQL_USER
+          value: {{ user_name }}
+        - name: MYSQL_PASSWORD
+          value: {{ user_password }}
+        - name: MYSQL_DATABASE
+          value: {{ database }}
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: {{ name }}-pv
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: {{ name }}-pv
+        persistentVolumeClaim:
+          claimName: {{ name }}-pvc

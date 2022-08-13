@@ -1,0 +1,18 @@
+###
+# Repo: bitnami/kibana
+##
+elasticsearch:
+  hosts:
+    - elasticsearch.observability.svc.cluster.local
+  port: 9200
+
+ingress:
+  enabled: true
+  hostname: kibana.18.223.81.13.nip.io
+  tls: true
+  ingressClassName: nginx
+  annotations:
+    fluentbit.io/parser: "kibana-nginx-ingress"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/acme-challange-type: http01

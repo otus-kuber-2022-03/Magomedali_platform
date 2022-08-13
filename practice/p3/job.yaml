@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: backup
+  namespace: default
+  labels:
+    app: web
+spec:
+  ttlSecondsAfterFinished: 600
+  completions: 1
+  template:
+    spec:
+      containers:
+        - name: pi
+          image: perl
+          command: ['perl', "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+      activeDeadlineSeconds: 60
+
+  backoffLimit: 1
